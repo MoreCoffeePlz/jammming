@@ -10,14 +10,15 @@ class Track extends React.Component {
       <a className="Track-action"><!-- + or - will go here --></a>
     </div>
   }
-};
-class Track-action extends React.Component {
   renderAction() {
     if (isRemoval === true) {
-      return -
+      return <a className= "Track-action"> - </a>
     } else {
-      return +
+      return <a className= "Track-action"> + </a>
     }
   }
-}
+};
+
+
+
 export default Track;
