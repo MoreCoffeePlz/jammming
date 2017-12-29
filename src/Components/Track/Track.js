@@ -12,7 +12,7 @@ class Track extends React.Component {
     </div>
   }
   renderAction() {
-    if (isRemoval === true) {
+    if (this.props.isRemoval === true) {
       return <a className= "Track-action"> - </a>
     } else {
       return <a className= "Track-action"> + </a>

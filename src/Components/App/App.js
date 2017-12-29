@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 //import logo from './logo.svg';
 import './App.css';
 import SearchResults from '../SearchResults/SearchResults'
+import Playlist from '../Playlist/Playlist'
+import SearchBar from '../SearchBar/SearchBar'
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      searchResults: []
-      playlistName: ''
+      searchResults: [],
+      playlistName: '',
       playlistTracks: [
         {
          name: 'name',
