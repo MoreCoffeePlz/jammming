@@ -8,6 +8,14 @@ class App extends Component {
     super(props)
     this.state = {
       searchResults: []
+      playlistName: ''
+      playlistTracks: [
+        {
+         name: 'name',
+         artist: 'artist',
+         album: 'album'
+       }
+        ]
     }
   }
 
@@ -19,7 +27,10 @@ class App extends Component {
   <div className="App">
 
     <div className="App-playlist">
-      <SearchResults searchResults = {this.state.searchResults} />
+      <SearchBar searchResults = {this.state.searchResults} />
+      <Playlist playlistName = {this.state.playlistName}
+      playlistTracks = {this.state.playlistTracks} />
+
     </div>
   </div>
 </div>
