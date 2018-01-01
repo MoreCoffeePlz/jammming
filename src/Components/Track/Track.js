@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './Track.css'
 class Track extends React.Component {
   render() {
-    return
+    return (
     <div className="Track">
       <div className="Track-information">
         <h3>{this.props.track.name}</h3>
@@ -10,7 +10,7 @@ class Track extends React.Component {
       </div>
       <a className="Track-action"> {this.renderAction()}</a>
     </div>
-  }
+  )}
   renderAction() {
     if (this.props.isRemoval === true) {
       return <a className= "Track-action"> - </a>

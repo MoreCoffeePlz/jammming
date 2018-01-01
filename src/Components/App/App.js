@@ -19,6 +19,13 @@ class App extends Component {
        }
         ]
     }
+    addTrack(track) {
+      let currentPlaylistTracks = this.state.playlistTracks
+      if (track.id !== this.state.playlistTracks) {
+        track.id.push(this.state.playlistTracks)
+      }
+      }
+    }
   }
 
 
