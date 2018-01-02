@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import './Track.css'
 class Track extends React.Component {
+  constructor () {
+    super(props)
+    this.addTrack().bind
+  }
   render() {
     return (
     <div className="Track">
@@ -11,6 +15,9 @@ class Track extends React.Component {
       <a className="Track-action"> {this.renderAction()}</a>
     </div>
   )}
+  addTrack() {
+    playlist.push(this.props.track)
+  }
   renderAction() {
     if (this.props.isRemoval === true) {
       return <a className= "Track-action"> - </a>
