@@ -19,14 +19,20 @@ class App extends Component {
        }
         ]
     }
-    addTrack(track) {
-      let currentPlaylistTracks = this.state.playlistTracks
-      if (track.id !== this.state.playlistTracks) {
-        track.id.push(this.state.playlistTracks)
-      }
-      }
+
     }
-  }
+
+
+
+    addTrack(track) {
+  let trackExists = currentPlaylistTracks.some(currentTrack => currentTrack.id === track.id);
+    if ( !trackExists ) {
+      currentPlaylistTracks.push(currentTrack)
+    }
+}
+//this.currentPlayistTracks.addTrack.bind
+
+};
 
 
   render() {
@@ -43,8 +49,8 @@ class App extends Component {
     </div>
   </div>
 </div>
-    );
+    )
   }
-}
+
 
 export default App;
