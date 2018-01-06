@@ -16,11 +16,11 @@ class Track extends React.Component {
       <a className="Track-action"> {this.renderAction()}</a>
     </div>
   )}
-  addTrack() {
-    <Playlist trackList={this.props.track} />
+  addTrack(event) {
+    this.props.onAdd(this.props.track);
   }
-  removeTrack() {
-    <Playlist trackList={this.props.track} />
+  removeTrack(event) {
+    this.props.onRemove(this.props.track);
   }
   renderAction() {
     if (this.props.isRemoval === true) {
