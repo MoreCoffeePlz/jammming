@@ -25,9 +25,10 @@ class App extends Component {
 
 
     addTrack(track) {
-  let trackExists = currentPlaylistTracks.some(currentTrack => currentTrack.id === track.id);
+  let currentTrack = track.id
+  let trackExists = this.state.playlistTracks.some(currentTrack => currentTrack.id === track.id);
     if ( !trackExists ) {
-      currentPlaylistTracks.push(currentTrack)
+      playlistTracks.push(currentTrack)
     }
 
 this.currentPlayistTracks.addTrack.bind
