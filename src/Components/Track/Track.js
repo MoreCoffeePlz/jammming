@@ -17,10 +17,10 @@ class Track extends React.Component {
     </div>
   )}
   addTrack() {
-    playlist.push(this.props.track)
+    <Playlist trackList={this.props.track} />
   }
   removeTrack() {
-    playlist.pop(this.props.track)
+    <Playlist trackList={this.props.track} />
   }
   renderAction() {
     if (this.props.isRemoval === true) {
