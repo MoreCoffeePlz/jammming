@@ -29,9 +29,10 @@ class App extends Component {
     if ( !trackExists ) {
       currentPlaylistTracks.push(currentTrack)
     }
-}
-//this.currentPlayistTracks.addTrack.bind
 
+this.currentPlayistTracks.addTrack.bind
+}
+removeTrack(track) {}
 
 
 
