@@ -8,6 +8,8 @@ import SearchBar from '../SearchBar/SearchBar'
 class App extends Component {
   constructor(props) {
     super(props)
+    this.removeTrack = this.removeTrack.bind(this)
+    this.addTrack = this.addTrack.bind(this);
     this.state = {
       searchResults: [],
       playlistName: '',
@@ -22,18 +24,31 @@ class App extends Component {
 
     }
 
-
-
+        /*old decrepit sad non-functioning method
     addTrack(track) {
   let currentTrack = track.id
-  let trackExists = this.state.playlistTracks.some(currentTrack => currentTrack.id === track.id);
+  let trackExists = this.state.Playlist.some(currentTrack => currentTrack.id === track.id);
     if ( !trackExists ) {
-      playlistTracks.push(currentTrack)
+      Playlist.push(currentTrack)
     }
+    */
 
-this.currentPlayistTracks.addTrack.bind
+//Shiny new method
+  addTrack(track) {
+    let tracks = this.state.playlistTracks;
+    let trackExists = this.state.playlistTracks.some(currentTrack => currentTrack.id === track.id);
+    if ( !trackExists ) {
+      tracks.push(track);
+      this.setState({playlistTracks: tracks});
+    }
+this.addTrack.bind
 }
-removeTrack(track) {}
+
+  removeTrack(track) {
+    let tracks = this.state.playlistTracks;
+    playlistTracks.filter(track => track.id);
+    this.setState({playlistTracks: tracks});
+  }
 
 
 
@@ -47,12 +62,13 @@ removeTrack(track) {}
       <SearchBar searchResults = {this.state.searchResults} />
       <Playlist playlistName = {this.state.playlistName}
       playlistTracks = {this.state.playlistTracks} />
-
+      <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
     </div>
   </div>
 </div>
     )
-  }
 
+
+}
 };
 export default App;
