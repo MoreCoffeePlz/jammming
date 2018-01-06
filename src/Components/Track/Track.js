@@ -18,6 +18,9 @@ class Track extends React.Component {
   addTrack() {
     playlist.push(this.props.track)
   }
+  removeTrack() {
+    playlist.pop(this.props.track)
+  }
   renderAction() {
     if (this.props.isRemoval === true) {
       return <a className= "Track-action"> - </a>

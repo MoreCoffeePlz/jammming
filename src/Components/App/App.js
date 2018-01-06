@@ -46,8 +46,9 @@ this.addTrack.bind
 
   removeTrack(track) {
     let tracks = this.state.playlistTracks;
-    playlistTracks.filter(track => track.id);
+    tracks.filter(song => song !== track.id);
     this.setState({playlistTracks: tracks});
+    this.removeTrack.bind
   }
 
 
@@ -62,7 +63,7 @@ this.addTrack.bind
       <SearchBar searchResults = {this.state.searchResults} />
       <Playlist playlistName = {this.state.playlistName}
       playlistTracks = {this.state.playlistTracks} />
-      <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
+      <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} onRemove={this.removeTrack}/>
     </div>
   </div>
 </div>
