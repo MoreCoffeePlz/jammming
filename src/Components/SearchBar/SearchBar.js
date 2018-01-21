@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './SearchBar.css'
 
 class SearchBar extends React.Component {
+<<<<<<< HEAD
   constructor(props) {
     super(props)
     this.search = this.search.bind(this)
@@ -21,6 +22,8 @@ class SearchBar extends React.Component {
   }
 
 
+=======
+>>>>>>> ead0ce45f311b2da8a259caae17b52692c3111ba
   render() {
     return (
     <div className="SearchBar">

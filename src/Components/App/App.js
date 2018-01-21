@@ -10,13 +10,17 @@ class App extends Component {
     super(props)
     this.removeTrack = this.removeTrack.bind(this)
     this.addTrack = this.addTrack.bind(this);
+<<<<<<< HEAD
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.search = this.search.bind(this);
+=======
+>>>>>>> ead0ce45f311b2da8a259caae17b52692c3111ba
     this.state = {
       searchResults: [],
       playlistName: '',
       playlistTracks: [
         {
+<<<<<<< HEAD
          name: 'name1',
          artist: 'artist1',
          album: 'album1',
@@ -28,11 +32,30 @@ class App extends Component {
         album: 'album2',
         uri: 'uri2'
       }
+=======
+         name: 'name',
+         artist: 'artist',
+         album: 'album'
+       }
+>>>>>>> ead0ce45f311b2da8a259caae17b52692c3111ba
         ]
     }
 
     }
 
+<<<<<<< HEAD
+=======
+        /*old decrepit sad non-functioning method
+    addTrack(track) {
+  let currentTrack = track.id
+  let trackExists = this.state.Playlist.some(currentTrack => currentTrack.id === track.id);
+    if ( !trackExists ) {
+      Playlist.push(currentTrack)
+    }
+    */
+
+//Shiny new method
+>>>>>>> ead0ce45f311b2da8a259caae17b52692c3111ba
   addTrack(track) {
     let tracks = this.state.playlistTracks;
     let trackExists = this.state.playlistTracks.some(currentTrack => currentTrack.id === track.id);
@@ -40,8 +63,13 @@ class App extends Component {
       tracks.push(track);
       this.setState({playlistTracks: tracks});
     }
+<<<<<<< HEAD
     this.addTrack.bind
   }
+=======
+this.addTrack.bind
+}
+>>>>>>> ead0ce45f311b2da8a259caae17b52692c3111ba
 
   removeTrack(track) {
     let tracks = this.state.playlistTracks;
@@ -50,6 +78,7 @@ class App extends Component {
     this.removeTrack.bind
   }
 
+<<<<<<< HEAD
   updatePlaylistName(name) {
     this.setState({playlistName: name})
     this.updatePlaylistName.bind
@@ -70,6 +99,8 @@ class App extends Component {
 
 
 
+=======
+>>>>>>> ead0ce45f311b2da8a259caae17b52692c3111ba
 
 
   render() {
@@ -79,9 +110,15 @@ class App extends Component {
   <div className="App">
 
     <div className="App-playlist">
+<<<<<<< HEAD
       <SearchBar searchResults = {this.state.searchResults} onSearch={this.search}/>
       <Playlist playlistName = {this.state.playlistName}
       playlistTracks = {this.state.playlistTracks} onNameChange={this.updatePlaylistName} onSave={this.savePlaylist}/>
+=======
+      <SearchBar searchResults = {this.state.searchResults} />
+      <Playlist playlistName = {this.state.playlistName}
+      playlistTracks = {this.state.playlistTracks} />
+>>>>>>> ead0ce45f311b2da8a259caae17b52692c3111ba
       <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} onRemove={this.removeTrack}/>
     </div>
   </div>
