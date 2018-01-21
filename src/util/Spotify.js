@@ -2,8 +2,9 @@ let accessToken
 let expiresIn
 const client_id = '6e9783045ade4df4b93883842a2c006e'
 const redirect_uri = 'http://localhost:3000'
+
 const Spotify = {
-  getAccessToken() {
+  getAccessToken: () => {
     let uri = window.location.href
     let accessTokenMatch = uri.match(/access_token=([^&]*)/)
     let expirationMatch = uri.match(/expires_in=([^&]*)/)
@@ -28,18 +29,28 @@ const Spotify = {
         'client_id=6e9783045ade4df4b93883842a2c006e' +
         '&response_type=token' +
         '&redirect_uri=http://localhost:3000'*/
-
-
-      window.location.href=url
+      window.location.href = url
     }
-  }
+  },
 
+  search: (searchTerm) => {
+    fetch('https://api.spotify.com/v1/search?type=TRACK&q=' + searchTerm, {
+      headers: {Authorization: `Bearer ${accessToken}`}
+    }).then(response => {
+      let batman = response.json();
+      let trackList = batman.tracks.items.map(track => {
+        return {
+          id: track.id,
+          name: track.name,
+          artist: track.artists[0].name,
+          album: track.abum.name,
+          uri: track.uri
+        }
+      })
+      return trackList
+    }).catch(err => {
+      return err
+    });
+  }
 }
 export default Spotify;
-fetch('./api/some.json')
-    .then(response => {
-        // Write your stupid things here
-    })
-    .catch(err => {
-        // Write your dumb things here
-    });
