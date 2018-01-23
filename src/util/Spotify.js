@@ -4,33 +4,57 @@ const client_id = '6e9783045ade4df4b93883842a2c006e'
 const redirect_uri = 'http://localhost:3000'
 
 const Spotify = {
+
   getAccessToken: () => {
-    let uri = window.location.href
-    let accessTokenMatch = uri.match(/access_token=([^&]*)/)
-    let expirationMatch = uri.match(/expires_in=([^&]*)/)
-    //console.log(window.location.href)
-    //console.log(accessTokenMatch)
-    //console.log(expirationMatch)
-    if (accessTokenMatch) {
-      accessToken = accessTokenMatch[1]
-      expiresIn = parseInt(expirationMatch[1])
-      window.setTimeout(() => accessToken = '', expiresIn * 1000);
-      window.history.pushState('Access Token', null, '/');
+    if (accessToken) {
       return accessToken
     } else {
-      //make an API call to generate new token
-      //url (required, options(optional))
-      var url = 'https://accounts.spotify.com/authorize?' +
-        'client_id=' + client_id +
-        '&response_type=token' +
-        '&redirect_uri=' + redirect_uri
-
-      /*var url = 'https://accounts.spotify.com/authorize?' +
-        'client_id=6e9783045ade4df4b93883842a2c006e' +
-        '&response_type=token' +
-        '&redirect_uri=http://localhost:3000'*/
-      window.location.href = url
+      let uri = window.location.href
+      let accessTokenMatch = uri.match(/access_token=([^&]*)/)
+      let expirationMatch = uri.match(/expires_in=([^&]*)/)
+      if (accessTokenMatch) {
+        accessToken = accessTokenMatch[1]
+        expiresIn = parseInt(expirationMatch[1])
+        window.setTimeout(() => accessToken = '', expiresIn * 1000);
+        window.history.pushState('Access Token', null, '/');
+        return accessToken
+      } else {
+        var url = 'https://accounts.spotify.com/authorize?' +
+          'client_id=' + client_id +
+          '&response_type=token' +
+          '&redirect_uri=' + redirect_uri
+        window.location.href = url
+      }
     }
+    // let uri = window.location.href
+    // let accessTokenMatch = uri.match(/access_token=([^&]*)/)
+    // let expirationMatch = uri.match(/expires_in=([^&]*)/)
+    // //console.log(window.location.href)
+    // //console.log(accessTokenMatch)
+    // //console.log(expirationMatch)
+    // if (accessTokenMatch) {
+    //   accessToken = accessTokenMatch[1]
+    //   expiresIn = parseInt(expirationMatch[1])
+    //   window.setTimeout(() => accessToken = '', expiresIn * 1000);
+    //   window.history.pushState('Access Token', null, '/');
+    //   return accessToken
+    // } else {
+    //   //make an API call to generate new token
+    //   //url (required, options(optional))
+    //   var url = 'https://accounts.spotify.com/authorize?' +
+    //     'client_id=' + client_id +
+    //     '&response_type=token' +
+    //     '&redirect_uri=' + redirect_uri
+    //
+    //   /*var url = 'https://accounts.spotify.com/authorize?' +
+    //     'client_id=6e9783045ade4df4b93883842a2c006e' +
+    //     '&response_type=token
+
+
+
+    //     '&redirect_uri=http://localhost:3000'*/
+    //   window.location.href = url
+    // }
   },
 
   /*search: (searchTerm) => {
@@ -53,8 +77,8 @@ const Spotify = {
     });
   },
 */
-  search(searchTerm) {
-     if (!accessToken) { Spotify.getAccessToken(); }
+  search: (searchTerm) => {
+    if (!accessToken) { Spotify.getAccessToken(); }
      return fetch('https://api.spotify.com/v1/search?type=track&q=' + searchTerm, {
        headers: {Authorization: `Bearer ${accessToken}`}
      }).then(response => response.json()).then(jsonResponse => {
@@ -67,20 +91,61 @@ const Spotify = {
          uri: track.uri
        }));
      });
-   }
+  },
 
-// //the following is a new method creation attempt fr saving the playlist to a user's account
-//   savePlaylist: (playlistName, playlistTracks) => {
-//     if (!playlistName && !playlistTracks) {
-//       return
-//     }
-//     let accessTokenVariable = accessToken
-//     const Headers = {
-//       authorization: accessToken,
-//       userId: ''
-//     }
-//   }
-
+ //the following is a new method creation attempt fr saving the playlist to a user's account
+  savePlaylist: (playlistName, playlistTrackUris) => {
+    if (!playlistName || !playlistTrackUris) {
+      return
+    }
+    let accessTokenVariable = accessToken
+    let headers = {Authorization: `Bearer ${accessToken}`}
+    let userId;
+    let playlistID;
+    fetch('https://api.spotify.com/v1/me', {
+      headers: headers
+    }).then(response => {
+      // JSONifies to retrieve userId
+      return response.json()
+    }).then(data => {
+      userId = data.id
+      console.log(accessToken)
+      console.log(playlistName)
+      return fetch('https://cors-anywhere.herokuapp.com/https://api.spotify.com/v1/users/' + userId + '/playlists', {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        },
+        method: 'post',
+        body: {
+          name: playlistName
+        }
+      })
+    }).then(response => {
+      // JSONifies to retrieve playlistId
+      console.log(response)
+    //   return response.json()
+    // }).then(data => {
+    //   console.log(data)
+    })
+    // }).then(response => {
+    //
+    //   }).then(response => {
+    //     let bluebird = response.json()
+    //     playlistID = bluebird.id
+    //   }).then(response => {
+    //     fetch('/v1/users/' + userId + '/playlists/' + playlistID + '/tracks', {
+    //       headers: headers,
+    //       method: 'post',
+    //       body: {
+    //         uris: playlistTrackUris
+    //       }
+    //     }).then(response => {
+    //       let bird = response.json()
+    //       playlistID = bird.id
+    //     })
+    //   })
+  }
 }
 export default Spotify;
 
