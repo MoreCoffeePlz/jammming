@@ -32,12 +32,5 @@ class Track extends React.Component {
   }
 
 };
-/*something I may need later
-addTrack(event) {
-    this.props.onAdd(this.props.track);
-  }
-  removeTrack(event) {
-    this.props.onRemove(this.props.track);
-  }
-*/
+
 export default Track;

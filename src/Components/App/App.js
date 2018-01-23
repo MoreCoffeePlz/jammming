@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import logo from './logo.svg';
 import './App.css';
 import SearchResults from '../SearchResults/SearchResults'
 import Playlist from '../Playlist/Playlist'
@@ -49,13 +48,22 @@ class App extends Component {
 
   savePlaylist() {
     let trackURIs = []
+    let clearFields = () => {
+      this.setState({playlistName: 'New Playlist', searchResults: [], playlistTracks: []})
+    }
+    clearFields.bind(this)
     for (let i = 0; i < this.state.playlistTracks.length; i++) {
       var container = this.state.playlistTracks[i]
       trackURIs.push(container.uri)
     }
     Spotify.getAccessToken()
-    Spotify.savePlaylist(this.state.playlistName, trackURIs)
-    this.setState({playlistName: 'New Playlist', searchResults: []})
+    let savePromise = Spotify.savePlaylist(this.state.playlistName, trackURIs)
+    if (savePromise) {
+      savePromise.then(response => {
+        clearFields()
+      })
+    }
+
     this.savePlaylist.bind
 
   }
@@ -66,8 +74,6 @@ class App extends Component {
     trackListPromise.then(output => {
       this.setState({searchResults: output})
     });
-    //console.log(trackList)
-    //this.setState({searchResults: trackList})
 
   }
 
