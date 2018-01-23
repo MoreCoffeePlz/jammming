@@ -19,9 +19,11 @@ const Spotify = {
         window.history.pushState('Access Token', null, '/');
         return accessToken
       } else {
+        let scopes='playlist-modify-private playlist-modify-public'
         var url = 'https://accounts.spotify.com/authorize?' +
           'client_id=' + client_id +
           '&response_type=token' +
+          '&scope=' + encodeURIComponent(scopes) +
           '&redirect_uri=' + redirect_uri
         window.location.href = url
       }
@@ -109,24 +111,33 @@ const Spotify = {
       return response.json()
     }).then(data => {
       userId = data.id
-      console.log(accessToken)
-      console.log(playlistName)
       return fetch('https://api.spotify.com/v1/users/' + userId + '/playlists', {
         headers: {
           'Authorization': `Bearer ${accessToken}`,
           'Content-Type': 'application/json'
         },
         method: 'post',
-        body: {
+        body: JSON.stringify({
           name: playlistName
-        }
+        })
       })
     }).then(response => {
       // JSONifies to retrieve playlistId
+      return response.json()
+    }).then(data => {
+      playlistID = data.id
+      return fetch('https://api.spotify.com/v1/users/' + userId + '/playlists/' + playlistID + '/tracks', {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        },
+        method: 'post',
+        body: JSON.stringify({
+          uris: playlistTrackUris
+        })
+      })
+    }).then(response => {
       console.log(response)
-    //   return response.json()
-    // }).then(data => {
-    //   console.log(data)
     })
     // }).then(response => {
     //
