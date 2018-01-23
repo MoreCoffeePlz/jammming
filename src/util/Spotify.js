@@ -111,7 +111,7 @@ const Spotify = {
       userId = data.id
       console.log(accessToken)
       console.log(playlistName)
-      return fetch('https://cors-anywhere.herokuapp.com/https://api.spotify.com/v1/users/' + userId + '/playlists', {
+      return fetch('https://api.spotify.com/v1/users/' + userId + '/playlists', {
         headers: {
           'Authorization': `Bearer ${accessToken}`,
           'Content-Type': 'application/json'
